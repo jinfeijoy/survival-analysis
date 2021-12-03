@@ -5,11 +5,11 @@
 * **Lifetime distribution function and event density**: 
   * Lifetime distribution function: <img src="https://render.githubusercontent.com/render/math?math=F(t) = Pr(T<=t) = 1 - S(t)">
   * Event density: <img src="https://render.githubusercontent.com/render/math?math=f(t) = F^'(t) = \frac{d}{dt}F(t)">, which indicate the rate of death or failure events per unit time
-  * Survival function: <img src="https://render.githubusercontent.com/render/math?math=S(t) = Pr(T>t) = 1 - F(t) = \\int_t^{inf} f(u)du">
-  * Survival event density: <img src="https://render.githubusercontent.com/render/math?math=s(t) = S^'(t) = \\frac{d}{dt}S(t)=\\frac{d}{dt}\\int_t^{inf}=\\frac{d}{dt}[1-F(t)]=-f(t)">
+  * Survival function: <img src="https://render.githubusercontent.com/render/math?math=S(t) = Pr(T>t) = 1 - F(t) = \int_t^{inf} f(u)du">
+  * Survival event density: <img src="https://render.githubusercontent.com/render/math?math=s(t) = S^'(t) = \frac{d}{dt}S(t)=\frac{d}{dt}\int_t^{inf}=\frac{d}{dt}[1-F(t)]=-f(t)">
 * Hazard
-  * Hazard function: donated as <img src="https://render.githubusercontent.com/render/math?math=\\lambda"> or *h*, is defined as the event rate at time *t* conditional on survival until time *t* or later (i.e. *T>=t*).
-    * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=h(t)=\\lim_{dt\\rightarrow 0}\\frac{Pr(t-dt\\le T -dt < t )}{dt*S(t)}=\\frac{f(t)}{S(t)} = - \\frac{S^'(t)}{S(t)}">
+  * Hazard function: donated as <img src="https://render.githubusercontent.com/render/math?math=\lambda"> or *h*, is defined as the event rate at time *t* conditional on survival until time *t* or later (i.e. *T>=t*).
+    * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lim_{dt\rightarrow 0}\frac{Pr(t-dt\le T -dt < t )}{dt*S(t)}=\frac{f(t)}{S(t)} = - \frac{S^'(t)}{S(t)}">
   * Cumulative hazard function:
 * Life expectancy
 * Right Censored / Left Censored / Interval censored
