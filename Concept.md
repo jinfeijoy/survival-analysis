@@ -1,0 +1,16 @@
+# Concept
+
+* **Survival Function *`S(t) = Pr(T>t)`***: the probability that the time of death is later than some specified time t.
+* **Survival Curve**: a flat survival curve (i.e. one that stays close to 1.0) suggests very good survival, whereas a survival curve that drops sharply toward 0 suggests poor survival.
+* **Lifetime distribution function and event density**: 
+  * Lifetime distribution function: <img src="https://render.githubusercontent.com/render/math?math=F(t) = Pr(T<=t) = 1 - S(t)">
+  * Event density: <img src="https://render.githubusercontent.com/render/math?math=f(t) = F^'(t) = \\frac{d}{dt}F(t)">, which indicate the rate of death or failure events per unit time
+  * Survival function: <img src="https://render.githubusercontent.com/render/math?math=S(t) = Pr(T>t) = 1 - F(t) = \\int_t^{inf} f(u)du">
+  * Survival event density: <img src="https://render.githubusercontent.com/render/math?math=s(t) = S^'(t) = \\frac{d}{dt}S(t)=\\frac{d}{dt}\\int_t^{inf}=\\frac{d}{dt}[1-F(t)]=-f(t)">
+* Hazard
+  * Hazard function: donated as <img src="https://render.githubusercontent.com/render/math?math=\\lambda"> or *h*, is defined as the event rate at time *t* conditional on survival until time *t* or later (i.e. *T>=t*).
+    * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=\\lambda(t)=\\lim_{dt&#8594 0}\\frac{Pr(t-dt\\le T -dt < t )}{dt*S(t)}=\\frac{f(t)}{S(t)} = - \\frac{S^'(t)}{S(t)}">
+  * Cumulative hazard function:
+* Life expectancy
+* Right Censored / Left Censored / Interval censored
+* Left truncated / Right truncated
