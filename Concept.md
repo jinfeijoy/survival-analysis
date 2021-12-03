@@ -14,6 +14,20 @@
   * Cumulative hazard function: denoted as `H`
     * `H(t) = -log S(t)` or `S(t) = exp(-H(t))`
     * <img src="https://render.githubusercontent.com/render/math?math=S(t)=exp[-H(t)]=\frac{f(t)}{\lambda(t)}=1-F(t), t>0">
-* Life expectancy
-* Right Censored / Left Censored / Interval censored
-* Left truncated / Right truncated
+    * Cumulative hazard function measures the total amount of risk that has been accumulated up to time t.
+    * Cumulative hazard is like the total number of revolutions an automobile's engine makes over a given period.
+* Life expectancy: life expectancy can be expressed as an integral of the survival curve
+  * 
+* Censoring:
+  * Censoring is a form of missing data problem in which time to event is not observed for reasons such as termination of study before all recruited subjects have shown the event of interest or the subject has left the study prior to experiencing an event.
+  * Right Censored: for those subjects whose birthdate is known but who are still alive when they are lost to follow-up or when the study ends
+  * Left Censored: If the event of interest has already happened before the subject is included in the study but it is not known when it occurred
+  * Interval censored: the event happened between two observations or examinations
+* Truncation (delayed entry study):
+  * In a so-called delayed entry study, subjects are not observed at all until they have reached a certain age. For example, people may not be observed until they have reached the age to enter school. Any deceased subjects in the pre-school age group would be unknown. 
+  * Left truncated: Left truncation occurs when individuals who have already passed the milestone at the time of study recruitment are not included in the study.
+
+
+### Reference
+* https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
+* https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/BS704_Survival_print.html
