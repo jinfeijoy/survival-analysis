@@ -10,7 +10,10 @@
 * Hazard
   * Hazard function: donated as <img src="https://render.githubusercontent.com/render/math?math=\lambda"> or *h*, is defined as the event rate at time *t* conditional on survival until time *t* or later (i.e. *T>=t*).
     * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lim_{dt\rightarrow 0}\frac{Pr(t-dt\le T -dt < t )}{dt*S(t)}=\frac{f(t)}{S(t)} = - \frac{S^'(t)}{S(t)}">
-  * Cumulative hazard function:
+    * The hazard function must be non-negative, and its integral over `[0, Inf]` must be infinite, but is not otherwise constrained; it may be increasing or decreasing, non-monotonic or discontinuous.
+  * Cumulative hazard function: denoted as `H`
+    * `H(t) = -log S(t)` or `S(t) = exp(-H(t))`
+    * <img src="https://render.githubusercontent.com/render/math?math=S(t)=exp[-H(t)]=\frac{f(t)}{\lambda(t)}=1-F(t), t>0">
 * Life expectancy
 * Right Censored / Left Censored / Interval censored
 * Left truncated / Right truncated
