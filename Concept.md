@@ -43,12 +43,13 @@
     * <img src="https://render.githubusercontent.com/render/math?math=H(t) = (\lambda t)^p">, `p>1` hazard function is increasing while `p<1`hazard function is decreasing
     * <img src="https://render.githubusercontent.com/render/math?math=W(1,\lambda) = Exp(\lambda)">
     * mean time between failures (expected lifetime): <img src="https://render.githubusercontent.com/render/math?math=MTBF(k,\lambda) = \frac{1}{\lambda}\Gamma (1 %2B \frac{1}{p})"> where <img src="https://render.githubusercontent.com/render/math?math=\Gamma(\alpha)=\int_0^{\infty}t^{\alpha -1}e^{-t}dt">
-  * Log-log Distribution: 
+  * Log-logistic Distribution: 
     * <img src="https://render.githubusercontent.com/render/math?math=F(t)=\frac{x^\beta}{\alpha ^{\beta} %2B x^{\beta}}, scale:\alpha, shape:\beta">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t)=\frac{(\beta / \alpha)(x/ \alpha)^{\beta - 1}}{(1%2B(x/\alpha)^{\beta})^2}">
     * <img src="https://render.githubusercontent.com/render/math?math=S(t)=1-F(t)=[1%2B(t/\alpha)^{\beta}]^{-1}">
-    * <img src="https://render.githubusercontent.com/render/math?math=h(t)=f(t)/S(t)=\frac{(\beta/\alpha)(t/\alpha)^{\beta-1}}{1%2B(t/\alpha)^{\beta}}">
-    * sometimes <img src="https://render.githubusercontent.com/render/math?math=\mu=ln(\alpha)"> and <img src="https://render.githubusercontent.com/render/math?math=s=1/\beta, \mu s in analogy with the logistic distribution">
+    * <img src="https://render.githubusercontent.com/render/math?math=h(t)=\frac{f(t)}{S(t)}=\frac{(\beta/\alpha)(t/\alpha)^{\beta-1}}{1%2B(t/\alpha)^{\beta}}">
+    * <img src="https://render.githubusercontent.com/render/math?math=E(T) = \frac{\pi \alpha \beta^{-1}}{\sin(\pi\beta^{-1})}, \beta>1">
+    * sometimes <img src="https://render.githubusercontent.com/render/math?math=\mu=ln(\alpha)"> and <img src="https://render.githubusercontent.com/render/math?math=s=1/\beta">, <img src="https://render.githubusercontent.com/render/math?math=\mu,s">in analogy with the logistic distribution
  * Exponential Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t) = \lambda \exp ^{-\lambda t}"> for <img src="https://render.githubusercontent.com/render/math?math=\lambda>0"> (scale parameter)
     * <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - \exp ^{-\lambda t}">  
@@ -62,3 +63,4 @@
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
 * https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/BS704_Survival_print.html
 * https://web.stanford.edu/~lutian/coursepdf/unit1.pdf
+* https://www.scielo.br/j/aabc/a/JnPjpjqLKnNzbkDHSQdHx9t/?format=pdf&lang=en
