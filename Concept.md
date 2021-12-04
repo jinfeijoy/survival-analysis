@@ -29,6 +29,17 @@
   * In a so-called delayed entry study, subjects are not observed at all until they have reached a certain age. For example, people may not be observed until they have reached the age to enter school. Any deceased subjects in the pre-school age group would be unknown. 
   * Left truncated: Left truncation occurs when individuals who have already passed the milestone at the time of study recruitment are not included in the study.
 
+# Survival Analysis
+* **Non-parametric Method**
+  * Kaplan-Meier Plot: A plot of the Kaplan–Meier estimator is a series of declining horizontal steps which, with a large enough sample size, approaches the true survival function for that population. 
+  * Life table: In actuarial science and demography, a life table (also called a mortality table or actuarial table) is a table which shows, for each age, what the probability is that a person of that age will die before their next birthday ("probability of death"). In other words, it presents the survivorship of people from a certain population.
+  * Log-rank test(Mantel-Cox test): The log-rank test is a hypothesis test to compare the survival distribution of two samples. It is a non-parametric test and appropriate to use when the data are right skewed and censored.
+* **Parametric Method**
+  * Weibull Distribution
+  * Log-log Distribution
+  * Exponential Distribution: denoted `<img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">`
+    * <img src="https://render.githubusercontent.com/render/math?math=f(t) = \lambda \exp ^{-\lambda t} for \lambda > 0">
+* **Semi-parametric Method**
 
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
