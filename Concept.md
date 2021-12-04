@@ -35,15 +35,20 @@
   * Life table: In actuarial science and demography, a life table (also called a mortality table or actuarial table) is a table which shows, for each age, what the probability is that a person of that age will die before their next birthday ("probability of death"). In other words, it presents the survivorship of people from a certain population.
   * Log-rank test(Mantel-Cox test): The log-rank test is a hypothesis test to compare the survival distribution of two samples. It is a non-parametric test and appropriate to use when the data are right skewed and censored.
 * **Parametric Method**
-  * Weibull Distribution: donated <img src="https://render.githubusercontent.com/render/math?math=W(p,\lambda),p>0 (shape),\lambda >0 (scale)">
+  * Weibull Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=W(p,\lambda),p>0 (shape),\lambda >0 (scale)">
     * Cumulative Distribution Function: <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - e^{-(\lambda t)^p}">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t) = p\lambda ^pt^{p-1}e^{-(\lambda t)^p}">
+    * <img src="https://render.githubusercontent.com/render/math?math=S(t) = e^{-(\lambda t)^p}">
     * <img src="https://render.githubusercontent.com/render/math?math=h(t) = p\lambda ^pt^{p-1}">
     * <img src="https://render.githubusercontent.com/render/math?math=H(t) = (\lambda t)^p">, `p>1` hazard function is increasing while `p<1`hazard function is decreasing
     * <img src="https://render.githubusercontent.com/render/math?math=W(1,\lambda) = Exp(\lambda)">
-    * mean time between failures (expected lifetime): <img src="https://render.githubusercontent.com/render/math?math=MTBF() = \frac{1}{\lambda}\Gamma (1 %2B 1/p)">
-  * Log-log Distribution
-  * Exponential Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">
+    * mean time between failures (expected lifetime): <img src="https://render.githubusercontent.com/render/math?math=MTBF(k,\lambda) = \frac{1}{\lambda}\Gamma (1 %2B \frac{1}{p})"> where <img src="https://render.githubusercontent.com/render/math?math=\Gamma(\alpha)=\int_0^{\infty}t^{\alpha -1}e^{-t}dt">
+  * Log-log Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=LN(\mu , \sigma ^2)~\exp(N(\mu,\sigma^2))">
+    * <img src="https://render.githubusercontent.com/render/math?math=F(t)=\Phi (\frac{log(t)-\mu}{\sigma})">
+    * <img src="https://render.githubusercontent.com/render/math?math=f(t)=\frac{\phi (\frac{log(t)-\mu}{\sigma})}{t\sigma}">
+    * <img src="https://render.githubusercontent.com/render/math?math=h(t)=f(t)/F(t)">
+    * where <img src="https://render.githubusercontent.com/render/math?math=\phi"> and <img src="https://render.githubusercontent.com/render/math?math=\Phi"> are the pdf and CDF of standard normal
+ * Exponential Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t) = \lambda \exp ^{-\lambda t}"> for <img src="https://render.githubusercontent.com/render/math?math=\lambda>0"> (scale parameter)
     * <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - \exp ^{-\lambda t}">  
     * <img src="https://render.githubusercontent.com/render/math?math=S(t) = \exp ^{-\lambda t}"> 
@@ -55,3 +60,4 @@
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
 * https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/BS704_Survival_print.html
+* https://web.stanford.edu/~lutian/coursepdf/unit1.pdf
