@@ -9,7 +9,7 @@
   * Survival event density: <img src="https://render.githubusercontent.com/render/math?math=s(t) = S^'(t) = \frac{d}{dt}S(t)=\frac{d}{dt}\int_t^{inf}=\frac{d}{dt}[1-F(t)]=-f(t)">
 * **Hazard**
   * Hazard function: donated as <img src="https://render.githubusercontent.com/render/math?math=\lambda"> or *h*, is defined as the event rate at time *t* conditional on survival until time *t* or later (i.e. *T>=t*).
-    * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lim_{dt\rightarrow 0}\frac{Pr(t-dt\le T -dt < t )}{dt*S(t)}=\frac{f(t)}{S(t)} = - \frac{S^'(t)}{S(t)}">
+    * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lim_{dt\rightarrow 0}\frac{Pr(t\le T < t%2Bdt )}{dt*S(t)}=\frac{f(t)}{S(t)} = - \frac{S^'(t)}{S(t)}">
     * The hazard function must be non-negative, and its integral over `[0, Inf]` must be infinite, but is not otherwise constrained; it may be increasing or decreasing, non-monotonic or discontinuous.
   * Cumulative hazard function: denoted as `H`
     * `H(t) = -log S(t)` or `S(t) = exp(-H(t))`
@@ -17,7 +17,9 @@
     * Cumulative hazard function measures the total amount of risk that has been accumulated up to time t.
     * Cumulative hazard is like the total number of revolutions an automobile's engine makes over a given period.
 * **Life expectancy**: life expectancy can be expressed as an integral of the survival curve
-  * Probability of death at or before age `t0 + t` given survival until age `t0` is:<img src="https://render.githubusercontent.com/render/math?math=S(t)=P(T\le t_0 %2B t|T>t_0)= \frac{P(t_0<T\le T_0%2Bt)}{P(T>t_0)}=\frac{F(t_0%2Bt)-F(t_0)}{S(t_0)}"> 
+  * Probability of death at or before age `t0 + t` given survival until age `t0` is:<img src="https://render.githubusercontent.com/render/math?math=P(T\le t_0 %2B t|T>t_0)= \frac{P(t_0<T\le T_0%2Bt)}{P(T>t_0)}=\frac{F(t_0%2Bt)-F(t_0)}{S(t_0)}"> 
+  * The probability density of future lifetime is: <img src="https://render.githubusercontent.com/render/math?math=\frac{d}{dt}\frac{F(t_0 + t) - F(t_0)}{S(t_0)}=\frac{f(t_0+t)}{S(t_0)}">
+  * The expected future lifetime: <img src="https://render.githubusercontent.com/render/math?math=\frac{1}{S(t_0)}\int_0^{inf}tf(t_0+t)dt=\frac{1}{S(t_0)}\int_{t_0}^{inf}S(t)dt">
 * **Censoring**:
   * Censoring is a form of missing data problem in which time to event is not observed for reasons such as termination of study before all recruited subjects have shown the event of interest or the subject has left the study prior to experiencing an event.
   * Right Censored: for those subjects whose birthdate is known but who are still alive when they are lost to follow-up or when the study ends
