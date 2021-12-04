@@ -37,8 +37,11 @@
 * **Parametric Method**
   * Weibull Distribution
   * Log-log Distribution
-  * Exponential Distribution: denoted `<img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">`
-    * <img src="https://render.githubusercontent.com/render/math?math=f(t) = \lambda \exp ^{-\lambda t} for \lambda > 0">
+  * Exponential Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">
+    * <img src="https://render.githubusercontent.com/render/math?math=f(t) = \lambda \exp ^{-\lambda t"} for <img src="https://render.githubusercontent.com/render/math?math=\lambda>0"} (scale parameter)
+    * <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - \exp ^{-\lambda t}"}  <img src="https://render.githubusercontent.com/render/math?math=S(t) = \exp ^{-\lambda t}"} 
+    * <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lambda"> constant hazard function
+    * <img src="https://render.githubusercontent.com/render/math?math=H(t) = \lambda t">
 * **Semi-parametric Method**
 
 ### Reference
