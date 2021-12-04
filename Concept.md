@@ -36,10 +36,11 @@
   * Log-rank test(Mantel-Cox test): The log-rank test is a hypothesis test to compare the survival distribution of two samples. It is a non-parametric test and appropriate to use when the data are right skewed and censored.
 * **Parametric Method**
   * Weibull Distribution: donated <img src="https://render.githubusercontent.com/render/math?math=W(p,\lambda),p>0 (shape),\lambda >0 (scale)">
-    * <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - e^{-\lambda t}^p">
+    * <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - e^{-(\lambda t)^p}">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t) = p\lambda ^pt^{p-1}e^{-(\lambda t)^p}">
     * <img src="https://render.githubusercontent.com/render/math?math=h(t) = p\lambda ^pt^{p-1}">
-    * <img src="https://render.githubusercontent.com/render/math?math=H(t) = (\lambda t)^p">
+    * <img src="https://render.githubusercontent.com/render/math?math=H(t) = (\lambda t)^p">, `p>1` hazard function is increasing while `p<1`hazard function is decreasing
+    * <img src="https://render.githubusercontent.com/render/math?math=W(1,\lambda) = Exp(\lambda)">
   * Log-log Distribution
   * Exponential Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t) = \lambda \exp ^{-\lambda t}"> for <img src="https://render.githubusercontent.com/render/math?math=\lambda>0"> (scale parameter)
