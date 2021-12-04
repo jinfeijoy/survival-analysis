@@ -17,7 +17,7 @@
     * Cumulative hazard function measures the total amount of risk that has been accumulated up to time t.
     * Cumulative hazard is like the total number of revolutions an automobile's engine makes over a given period.
 * **Life expectancy**: life expectancy can be expressed as an integral of the survival curve
-  * Probability of death at or before age `t0 + t` given survival until age `t0` is:<img src="https://render.githubusercontent.com/render/math?math=S(t)=P(T<= t_0 + t|T>t_0= \frac{P(t_0<T<=T_0+t}{P(T>t_0}=\frac{F(t_0+t)-F(t_0)}{S(t_0)}"> 
+  * Probability of death at or before age `t0 + t` given survival until age `t0` is:<img src="https://render.githubusercontent.com/render/math?math=S(t)=P(T\le t_0 \+ t|T>t_0)= \frac{P(t_0<T\le T_0+t)}{P(T>t_0}=\frac{F(t_0+t)-F(t_0)}{S(t_0)}"> 
 * **Censoring**:
   * Censoring is a form of missing data problem in which time to event is not observed for reasons such as termination of study before all recruited subjects have shown the event of interest or the subject has left the study prior to experiencing an event.
   * Right Censored: for those subjects whose birthdate is known but who are still alive when they are lost to follow-up or when the study ends
