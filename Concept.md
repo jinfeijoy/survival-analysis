@@ -65,7 +65,7 @@
   * Cox Proportional-Hazards Model
     * When we are trying to model the effects of covariates (e.g. age, gender, race, machine manufacturer) we will typically be interested in understanding the effect of the covariate on the Hazard Rate. The hazard rate is the instantaneous probability of failure/death/state transition at a given time t, conditional on already having survived that long.
     * The Cox Proportional Hazards Model is usually given in terms of the time t, covariate vector x, and coefficient vector β as <img src="https://render.githubusercontent.com/render/math?math=\lambda(t)=\lambda_0(t)e^{x^T\beta}">, where <img src="https://render.githubusercontent.com/render/math?math=\lambda_0"> s an arbitrary function of time, the baseline hazard. The dot product of X and β is taken in the exponent just like in standard linear regression.
-    * The survivor function: <img src="https://render.githubusercontent.com/render/math?math=S(t)=\exp\int_0^t \lambda_0(t)\exp x^T\beta = S_0(t)^{\exp x^T\beta}">
+    * The survivor function: <img src="https://render.githubusercontent.com/render/math?math=S(t)=\exp\int_0^t \lambda_0(t)\exp(x^T\beta) = S_0(t)^{\exp(x^T\beta)}">
     * Baseline survivor function: estimating the survivor function is very similar to estimating a KM curve.
     * [Use Cox models only if interested in hazard ratios and nothing else](https://stats.stackexchange.com/questions/68737/how-to-estimate-baseline-hazard-function-in-cox-model-with-r)
 * **Performance Evaluation**
