@@ -35,7 +35,7 @@
     * As a non-parametric estimator, it does a good job of giving a quick look at the survival curve for a dataset. However, what it doesn’t let you do is model the impact of covariates on survival.
   * Life table: In actuarial science and demography, a life table (also called a mortality table or actuarial table) is a table which shows, for each age, what the probability is that a person of that age will die before their next birthday ("probability of death"). In other words, it presents the survivorship of people from a certain population.
   * Log-rank test(Mantel-Cox test): The log-rank test is a hypothesis test to compare the survival distribution of two samples. It is a non-parametric test and appropriate to use when the data are right skewed and censored.
-  * Nelson Aalen Fitter
+  * Nelson Aalen Fitter: Like the Kaplan-Meier Fitter, Nelson Aalen Fitter also gives us an average view of the population. It is given by the number of deaths at time t divided by the number of subjects at risk.
 * **Parametric Method**: strong assumptions about the data.
   * Weibull Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=W(p,\lambda),p>0 (shape),\lambda >0 (scale)">
     * Cumulative Distribution Function: <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - e^{-(\lambda t)^p}">
@@ -59,7 +59,6 @@
     * <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lambda">  constant hazard function
     * <img src="https://render.githubusercontent.com/render/math?math=H(t) = \lambda t">
     * <img src="https://render.githubusercontent.com/render/math?math=E(T) = \frac{1}{\lambda}">
-  * Aalen’s Additive Model
   * Accelerated Failure Time Regression Model
 * **Semi-parametric Method**: Proportional hazards model, no functional assumptions are made about the shape of the Hazard Function
   * Cox Proportional-Hazards Model
@@ -68,6 +67,9 @@
     * The survivor function: <img src="https://render.githubusercontent.com/render/math?math=S(t)=\exp\int_0^t \lambda_0(t)\exp(x^T\beta) = S_0(t)^{\exp(x^T\beta)}">
     * Baseline survivor function: estimating the survivor function is very similar to estimating a KM curve.
     * [Use Cox models only if interested in hazard ratios and nothing else](https://stats.stackexchange.com/questions/68737/how-to-estimate-baseline-hazard-function-in-cox-model-with-r)
+    * Concern: keep in mind "omitted variable bias", baseline hazard function is non-parametric, only baseline hazard rate provided with R/Python packages, then the baseline hazard rate will be used in the model.
+  * [Aalen’s Additive Model](http://www.ukm.my/jsm/pdf_files/SM-PDF-46-3-2017/15%20Aditif%20Aalen.pdf)
+    * <img src="https://render.githubusercontent.com/render/math?math=\lambda(t|X) = \lambda_0(t)r(X^T\beta)"> where <img src="https://render.githubusercontent.com/render/math?math=\lambda_0(t)"> is the baseline hazard and it may have a specified parametric form or may be left as an arbitrary non-negative function.
 * **Performance Evaluation**
   * Concordance Index
 ### Reference
