@@ -4,12 +4,12 @@
 * **Survival Curve**: a flat survival curve (i.e. one that stays close to 1.0) suggests very good survival, whereas a survival curve that drops sharply toward 0 suggests poor survival.
 * **Lifetime distribution function and event density**: 
   * Lifetime distribution function: <img src="https://render.githubusercontent.com/render/math?math=F(t) = Pr(T<=t) = 1 - S(t)">
-  * Event density: <img src="https://render.githubusercontent.com/render/math?math=f(t) = F^'(t) = \frac{d}{dt}F(t)">, which indicate the rate of death or failure events per unit time
+  * Event density: <img src="https://render.githubusercontent.com/render/math?math=f(t) = F^'(t) = \frac{d}{dt}F(t)">, which indicate the rate of death or failure events per unit time (overall probability density of failing at time t)
   * Survival function: <img src="https://render.githubusercontent.com/render/math?math=S(t) = Pr(T>t) = 1 - F(t) = \int_t^{inf} f(u)du">
   * Survival event density: <img src="https://render.githubusercontent.com/render/math?math=s(t) = S^'(t) = \frac{d}{dt}S(t)=\frac{d}{dt}\int_t^{inf}=\frac{d}{dt}[1-F(t)]=-f(t)">
 * **Hazard**
   * Hazard function: donated as <img src="https://render.githubusercontent.com/render/math?math=\lambda"> or *h*, is defined as the event rate at time *t* conditional on survival until time *t* or later (i.e. *T>=t*).
-    * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lim_{dt\rightarrow 0}\frac{Pr(t\le T < t%2Bdt )}{dt*S(t)}=\frac{f(t)}{S(t)} = - \frac{S^'(t)}{S(t)}">
+    * Given survived for a time *t* and will not survival for an additional time *dt*: <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lim_{dt\rightarrow 0}\frac{Pr(t\le T < t%2Bdt )}{dt*S(t)}=\frac{f(t)}{S(t)} = - \frac{S^'(t)}{S(t)} = -\frac{d}{dx}ln(S(x))">
     * The hazard function must be non-negative, and its integral over `[0, Inf]` must be infinite, but is not otherwise constrained; it may be increasing or decreasing, non-monotonic or discontinuous.
   * Cumulative hazard function: denoted as `H`
     * `H(t) = -log S(t)` or `S(t) = exp(-H(t))`
@@ -32,9 +32,10 @@
 # Survival Analysis
 * **Non-parametric Method**
   * Kaplan-Meier Plot: A plot of the Kaplan–Meier estimator is a series of declining horizontal steps which, with a large enough sample size, approaches the true survival function for that population. 
+    * As a non-parametric estimator, it does a good job of giving a quick look at the survival curve for a dataset. However, what it doesn’t let you do is model the impact of covariates on survival.
   * Life table: In actuarial science and demography, a life table (also called a mortality table or actuarial table) is a table which shows, for each age, what the probability is that a person of that age will die before their next birthday ("probability of death"). In other words, it presents the survivorship of people from a certain population.
   * Log-rank test(Mantel-Cox test): The log-rank test is a hypothesis test to compare the survival distribution of two samples. It is a non-parametric test and appropriate to use when the data are right skewed and censored.
-* **Parametric Method**
+* **Parametric Method**: strong assumptions about the data.
   * Weibull Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=W(p,\lambda),p>0 (shape),\lambda >0 (scale)">
     * Cumulative Distribution Function: <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - e^{-(\lambda t)^p}">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t) = p\lambda ^pt^{p-1}e^{-(\lambda t)^p}">
@@ -50,17 +51,25 @@
     * <img src="https://render.githubusercontent.com/render/math?math=h(t)=\frac{f(t)}{S(t)}=\frac{(\beta/\alpha)(t/\alpha)^{\beta-1}}{1%2B(t/\alpha)^{\beta}}">
     * <img src="https://render.githubusercontent.com/render/math?math=E(T) = \frac{\pi \alpha \beta^{-1}}{\sin(\pi\beta^{-1})}, \beta>1">
     * sometimes <img src="https://render.githubusercontent.com/render/math?math=\mu=ln(\alpha)"> and <img src="https://render.githubusercontent.com/render/math?math=s=1/\beta">, <img src="https://render.githubusercontent.com/render/math?math=\mu,s">in analogy with the logistic distribution
- * Exponential Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">
+  * Exponential Distribution: denoted <img src="https://render.githubusercontent.com/render/math?math=T~Exp(\lambda)">
     * <img src="https://render.githubusercontent.com/render/math?math=f(t) = \lambda \exp ^{-\lambda t}"> for <img src="https://render.githubusercontent.com/render/math?math=\lambda>0"> (scale parameter)
     * <img src="https://render.githubusercontent.com/render/math?math=F(t) = 1 - \exp ^{-\lambda t}">  
     * <img src="https://render.githubusercontent.com/render/math?math=S(t) = \exp ^{-\lambda t}"> 
     * <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lambda">  constant hazard function
     * <img src="https://render.githubusercontent.com/render/math?math=H(t) = \lambda t">
     * <img src="https://render.githubusercontent.com/render/math?math=E(T) = \frac{1}{\lambda}">
-* **Semi-parametric Method**
+* **Semi-parametric Method**: Proportional hazards model, no functional assumptions are made about the shape of the Hazard Function
+  * Cox Proportional-Hazards Model
+    * When we are trying to model the effects of covariates (e.g. age, gender, race, machine manufacturer) we will typically be interested in understanding the effect of the covariate on the Hazard Rate. The hazard rate is the instantaneous probability of failure/death/state transition at a given time t, conditional on already having survived that long.
+    * The Cox Proportional Hazards Model is usually given in terms of the time t, covariate vector x, and coefficient vector β as <img src="https://render.githubusercontent.com/render/math?math=\lambda(t)=\lambda_0(t)e^{x^T\beta}">, where <img src="https://render.githubusercontent.com/render/math?math=\lambda_0"> s an arbitrary function of time, the baseline hazard. The dot product of X and β is taken in the exponent just like in standard linear regression.
 
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
 * https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/BS704_Survival_print.html
 * https://web.stanford.edu/~lutian/coursepdf/unit1.pdf
 * https://www.scielo.br/j/aabc/a/JnPjpjqLKnNzbkDHSQdHx9t/?format=pdf&lang=en
+* Cox Proportional Hazard Model
+  * https://kowshikchilamkurthy.medium.com/the-cox-proportional-hazards-model-da61616e2e50
+  * https://medium.com/analytics-vidhya/predict-survival-model-using-cox-proportional-hazard-model-7bb4ee9fec9a
+  * https://towardsdatascience.com/the-cox-proportional-hazards-model-35e60e554d8f
+  * https://towardsdatascience.com/survival-analysis-part-a-70213df21c2e
