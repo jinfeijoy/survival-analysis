@@ -75,6 +75,7 @@
   * survival random forest
 * **Performance Evaluation**
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
+    * Compute the C-index: for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
 
 
 ### Reference
@@ -84,7 +85,6 @@
 * https://www.scielo.br/j/aabc/a/JnPjpjqLKnNzbkDHSQdHx9t/?format=pdf&lang=en
 * https://medium.com/codex/survival-analysis-part-ii-ddbbae048d3f
 * [Kaggle Example](https://www.kaggle.com/taimurzahid/survival-regression-analysis-to-predict-churn)
-  * Compute the C-index: for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
 * Cox Proportional Hazard Model
   * https://kowshikchilamkurthy.medium.com/the-cox-proportional-hazards-model-da61616e2e50
   * https://medium.com/analytics-vidhya/predict-survival-model-using-cox-proportional-hazard-model-7bb4ee9fec9a
