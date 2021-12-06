@@ -70,8 +70,13 @@
     * Concern: keep in mind "omitted variable bias", baseline hazard function is non-parametric, only baseline hazard rate provided with R/Python packages, then the baseline hazard rate will be used in the model.
   * [Aalen’s Additive Model](http://www.ukm.my/jsm/pdf_files/SM-PDF-46-3-2017/15%20Aditif%20Aalen.pdf)
     * <img src="https://render.githubusercontent.com/render/math?math=\lambda(t|X) = \lambda_0(t)r(X^T\beta)"> where <img src="https://render.githubusercontent.com/render/math?math=\lambda_0(t)"> is the baseline hazard and it may have a specified parametric form or may be left as an arbitrary non-negative function.
+* **Tree-structured survival models**
+  * survival tree analysis
+  * survival random forest
 * **Performance Evaluation**
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
+
+
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
 * https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/BS704_Survival_print.html

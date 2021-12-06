@@ -11,7 +11,8 @@
 
 ## Survival Analysis
 * Non-parametric: 
-  * Kaplan–Meier plot 
+  * Kaplan–Meier plot
+  * Nelson Aalen Fitter
   * Life table
   * Log-rank test
 
@@ -19,11 +20,16 @@
   * Weibull Distribution
   * Log-log Distribution
   * Exponential Distribution
+  * Accelerated Failure Time Regression Model
 
 
 * Semi-parametric:
   * Cox proportional hazards (PH) regression analysis 
+  * Aalen’s Additive Model
 
 * Tree-structured survival models
   * survival tree analysis
   * survival random forest
+
+* Performance Evaluation:
+  * Concordance Index(C-index)
