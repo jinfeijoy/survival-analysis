@@ -59,10 +59,18 @@
     * <img src="https://render.githubusercontent.com/render/math?math=h(t)=\lambda">  constant hazard function
     * <img src="https://render.githubusercontent.com/render/math?math=H(t) = \lambda t">
     * <img src="https://render.githubusercontent.com/render/math?math=E(T) = \frac{1}{\lambda}">
-  * Accelerated Failure Time Regression Model
+  * Proportional hazards (relative risk)
+    * <img src="https://render.githubusercontent.com/render/math?math=h(t|X)=h(t)\exp(X\beta)"> where <img src="https://render.githubusercontent.com/render/math?math=h(t)"> is referred to as an underlying hazard function
+    * hazard ratio(<img src="https://render.githubusercontent.com/render/math?math=X\ast:X=\exp[(X\ast-X)\beta])">
+  * [Accelerated Failure Time Regression Model](https://courses.washington.edu/b515/l16.pdf)
     * The accelerated failure time (AFT) model specifies that predictors act multiplicatively on the failure time (additively on the log of the failure time). The predictor alters the rate at which a subject proceeds along the time axis.
     * The model is: <img src="https://render.githubusercontent.com/render/math?math=S(t|X)=\psi ((log(t)-X\beta)/\sigma)"> where <img src="https://render.githubusercontent.com/render/math?math=\psi"> is any standard survival distribution and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is called the scale parameters.
     * The relationship also can be written as: <img src="https://render.githubusercontent.com/render/math?math=log(T)=X\beta %2B\sigma \epsilon"> where <img src="https://render.githubusercontent.com/render/math?math=\epsilon"> is a random variable from the <img src="https://render.githubusercontent.com/render/math?math=\psi"> distribution.
+    * Assumptions:
+      * The true form of <img src="https://render.githubusercontent.com/render/math?math=\psi"> is correctly specified
+      * Each <img src="https://render.githubusercontent.com/render/math?math=X_j"> affects <img src="https://render.githubusercontent.com/render/math?math=log(T)"> linearly (assuming no interactions)
+      * <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is a constant, independent of X
+    * The exponential and Weibull distributions are the only two distributions that can be used to describe both PH and AFT models
 * **Semi-parametric Method**: Proportional hazards model, no functional assumptions are made about the shape of the Hazard Function
   * Cox Proportional-Hazards Model
     * When we are trying to model the effects of covariates (e.g. age, gender, race, machine manufacturer) we will typically be interested in understanding the effect of the covariate on the Hazard Rate. The hazard rate is the instantaneous probability of failure/death/state transition at a given time t, conditional on already having survived that long.
