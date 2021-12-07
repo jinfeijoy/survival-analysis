@@ -76,7 +76,8 @@
 * **Performance Evaluation**
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
     * [Compute the C-index](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/): for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
-    * Harrell's C-index is simply: <img src="https://render.githubusercontent.com/render/math?math=c=\frac{no_concordant_pairs}{no_concordant_pairs %2B no_discordant_pairs}">
+    * Harrell's C-index is simply: `(# concordant pairs)/(# concordant pairs + # discordant pairs)`
+    * formula: 
 
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
