@@ -60,6 +60,9 @@
     * <img src="https://render.githubusercontent.com/render/math?math=H(t) = \lambda t">
     * <img src="https://render.githubusercontent.com/render/math?math=E(T) = \frac{1}{\lambda}">
   * Accelerated Failure Time Regression Model
+    * The accelerated failure time (AFT) model specifies that predictors act multiplicatively on the failure time (additively on the log of the failure time). The predictor alters the rate at which a subject proceeds along the time axis.
+    * The model is: <img src="https://render.githubusercontent.com/render/math?math=S(t|X)=\psi ((log(t)-X\beta)/\sigma)"> where <img src="https://render.githubusercontent.com/render/math?math=\psi"> is any standard survival distribution and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is called the scale parameters.
+    * The relationship also can be written as: <img src="https://render.githubusercontent.com/render/math?math=log(T)=X\beta %2B\sigma \epsilon"> where <img src="https://render.githubusercontent.com/render/math?math=\epsilon"> is a random variable from the <img src="https://render.githubusercontent.com/render/math?math=\psi"> distribution.
 * **Semi-parametric Method**: Proportional hazards model, no functional assumptions are made about the shape of the Hazard Function
   * Cox Proportional-Hazards Model
     * When we are trying to model the effects of covariates (e.g. age, gender, race, machine manufacturer) we will typically be interested in understanding the effect of the covariate on the Hazard Rate. The hazard rate is the instantaneous probability of failure/death/state transition at a given time t, conditional on already having survived that long.
@@ -78,7 +81,7 @@
     * [Compute the C-index](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/): for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
     * Harrell's C-index is simply: `(# concordant pairs)/(# concordant pairs + # discordant pairs)`
     * formula: ![image](https://user-images.githubusercontent.com/16402963/144953369-fc7d06c3-5dd9-4d2a-8178-da4341806e93.png)
-
+    * Values of c near 0.5 indicate that the risk score predictions are no better than a coin flip in determining which patient will live longer. Values near 1 indicate that the risk scores are good at determining which of two patients will have the disease first.
 
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
@@ -92,3 +95,8 @@
   * https://medium.com/analytics-vidhya/predict-survival-model-using-cox-proportional-hazard-model-7bb4ee9fec9a
   * https://towardsdatascience.com/the-cox-proportional-hazards-model-35e60e554d8f
   * https://towardsdatascience.com/survival-analysis-part-a-70213df21c2e
+* Accelerated Failure Time Model
+  * https://xgboost.readthedocs.io/en/latest/tutorials/aft_survival_analysis.html
+  * https://courses.washington.edu/b515/l16.pdf
+  * https://myweb.uiowa.edu/pbreheny/7210/f15/notes/10-15.pdf
+  * https://hal-univ-pau.archives-ouvertes.fr/hal-02953269/document
