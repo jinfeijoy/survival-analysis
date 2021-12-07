@@ -81,9 +81,10 @@
     * Concern: keep in mind "omitted variable bias", baseline hazard function is non-parametric, only baseline hazard rate provided with R/Python packages, then the baseline hazard rate will be used in the model.
   * [Aalen’s Additive Model](http://www.ukm.my/jsm/pdf_files/SM-PDF-46-3-2017/15%20Aditif%20Aalen.pdf)
     * <img src="https://render.githubusercontent.com/render/math?math=\lambda(t|X) = \lambda_0(t)r(X^T\beta)"> where <img src="https://render.githubusercontent.com/render/math?math=\lambda_0(t)"> is the baseline hazard and it may have a specified parametric form or may be left as an arbitrary non-negative function.
-* **Tree-structured survival models**
-  * survival tree analysis
-  * survival random forest
+* **[Tree-structured survival models](https://projecteuclid.org/journals/statistics-surveys/volume-5/issue-none/A-review-of-survival-trees/10.1214/09-SS047.pdf)**
+  * Survival trees and forests are popular non-parametric alternatives to (semi) parametric models. They offer great flexibility and can automatically detect certain types of interactions without the need to specify them beforehand.
+  * The basic setup assumes that the covariate values are available at time 0 for each subject. Thus, only the baseline values of a time-varying covariate are typically used.
+  * survival tree analysis/survival random forest
 * **Performance Evaluation**
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
     * [Compute the C-index](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/): for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
