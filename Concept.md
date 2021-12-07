@@ -77,7 +77,8 @@
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
     * [Compute the C-index](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/): for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
     * Harrell's C-index is simply: `(# concordant pairs)/(# concordant pairs + # discordant pairs)`
-    * formula: 
+    * formula: ![image](https://user-images.githubusercontent.com/16402963/144953369-fc7d06c3-5dd9-4d2a-8178-da4341806e93.png)
+
 
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
