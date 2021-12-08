@@ -84,7 +84,7 @@
 * **[Tree-structured survival models](https://projecteuclid.org/journals/statistics-surveys/volume-5/issue-none/A-review-of-survival-trees/10.1214/09-SS047.pdf)**
   * Survival trees and forests are popular non-parametric alternatives to (semi) parametric models. They offer great flexibility and can automatically detect certain types of interactions without the need to specify them beforehand.
   * The basic setup assumes that the covariate values are available at time 0 for each subject. Thus, only the baseline values of a time-varying covariate are typically used.
-  * survival tree analysis/survival random forest
+  * survival tree analysis/[survival random forest](https://scikit-survival.readthedocs.io/en/stable/user_guide/random-survival-forest.html)
 * **Performance Evaluation**
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
     * [Compute the C-index](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/): for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
