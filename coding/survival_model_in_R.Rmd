@@ -1,0 +1,235 @@
+---
+title: "Survival Analysis"
+author: "Jinfei Li"
+date: "2021/12/8"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(kableExtra.latex.load_packages = FALSE)
+```
+
+## K-M Curve and Simple Parametric Distribution
+
+### Data Summary
+Data can be downloaded from [here](https://www.kaggle.com/taimurzahid/survival-regression-analysis-to-predict-churn/data), in the dataset, there is no entry age, which is exist in real case, so I added entry_age = 0 for all observations. Entry age is the client's age (or loan age) when we start recording the records history.
+
+```{r loaddata, echo=FALSE, include = FALSE, messsage = FALSE,  warning = FALSE}
+library(data.table)
+library(flexsurv)
+library(ggplot2)
+library(gridExtra)
+library(eha)
+library(msm)
+library(CompLognormal)
+library(pROC)
+require(plyr)
+library(kableExtra)
+library(survival)
+library(survminer)
+
+setwd("C:/Users/luoyan011/Desktop/PersonalLearning/GitHub/data_2021")
+data = fread('WA_Fn-UseC_-Telco-Customer-Churn.csv')
+data$entry_age = 0
+
+
+data$Churn <- mapvalues(data$Churn, 
+          from=c('Yes','No'), 
+          to=c(1,0))
+data$Churn = as.numeric(as.character(data$Churn))
+
+data = data[which(data$tenure>data$entry_age),]
+
+index = sample(1:nrow(data), size=0.3*nrow(data))
+training = data[-index,]
+testing = data[index,]
+```
+
+```{r functions, echo=FALSE, include = FALSE, messsage = FALSE,  warning = FALSE}
+logit.to.AIC = function(x){
+  2-2*mean(x$loglik)
+}
+
+base.weib = function(x,t,i){
+  # x is distibution
+  # t is time index
+  # i is for strata, 2 categories then i = 1 and 2, 3 categories then i = 1,2,3
+  s1 = pweibull(t
+                , shape = exp(x$coefficients[2*i])
+                , scale = exp(x$coefficients[2*i-1])
+                , lower.tail = FALSE
+                )
+  return(s1)
+}
+
+base.exp = function(x,t){
+  exp(-exp(x$coefficients)*t)
+}
+
+base.lognom = function(x,t,i){
+  s1 = plnorm(t
+              , x$coefficients[2*i-1]
+              , exp(-x$coefficients[2*i])
+              , lower.tail = FALSE
+              )
+  return(s1)
+}
+
+base.loglog = function(x,t,i){
+  s1 = pllogis(t
+               , exp(x$coefficients[2*i])
+               , exp(x$coefficients[2*i-1])
+               , lower.tail = FALSE
+               )
+}
+
+
+```
+
+The dataset samples are as below, where tenure is age, Churn is target variable, entry_age is the control of entry-age, customerID is ID, all other variables are covariate variables.
+```{r displaydata, echo=FALSE}
+kbl(data[1:3,1:12], booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+kbl(data[1:3,13:22], booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+```
+
+### Parametric Method -- Simple Distribution
+
+Fit parametric distribution with no covariates:
+```{r para_no_covariate, echo=TRUE, warning=FALSE}
+exp.1 = flexsurvreg(Surv(entry_age, tenure, Churn, type='counting')~1
+                    , data=training
+                    , dist = 'exp')
+lognormal.1 = aftreg(Surv(entry_age, tenure, Churn, type='counting')~1
+                    , data=training
+                    , dist = 'lognormal')
+weibull.1 = aftreg(Surv(entry_age, tenure, Churn, type='counting')~1
+                    , data=training
+                    , dist = 'weibull')
+loglog.1 = aftreg(Surv(entry_age, tenure, Churn, type='counting')~1
+                    , data=training
+                    , dist = 'loglogistic')
+plot(lognormal.1)
+
+```
+
+Fit parametric distribution with variable "PhoneService":
+```{r para_covariate, echo=TRUE, warning=FALSE}
+lognormal.2 = aftreg(Surv(entry_age, tenure, Churn, type='counting')~strata(PhoneService)
+                    , data=training
+                    , dist = 'lognormal')
+weibull.2 = aftreg(Surv(entry_age, tenure, Churn, type='counting')~strata(PhoneService)
+                    , data=training
+                    , dist = 'weibull')
+loglog.2 = aftreg(Surv(entry_age, tenure, Churn, type='counting')~strata(PhoneService)
+                    , data=training
+                    , dist = 'loglogistic')
+```
+
+Check AIC for different models above:
+```{r para_aic, echo=FALSE, warning=FALSE}
+AIC.1 = cbind(logit.to.AIC(weibull.1),logit.to.AIC(lognormal.1),logit.to.AIC(loglog.1),logit.to.AIC(exp.1))
+colnames(AIC.1) = c('weibreg.AIC','lognormal.AIC','loglogistic.AIC','exponential.AIC')
+AIC.2 = cbind(logit.to.AIC(weibull.2),logit.to.AIC(lognormal.2),logit.to.AIC(loglog.2))
+colnames(AIC.2) = c('weibreg.AIC','lognormal.AIC','loglogistic.AIC')
+```
+
+```{r display_paraaic, echo=FALSE}
+AIC.1 %>%
+  kbl(caption = "No Covariates Distribution AIC") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+AIC.2 %>%
+  kbl(caption = "With Covariates Distribution AIC") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+```
+
+Get distribution parameters and some survival functions:
+```{r para-parameters, echo=TRUE, warning=FALSE}
+t = c(1:100)
+# No-covariate-Weibull-distribution
+shape = exp(weibull.1$coefficients[2])
+scale = exp(weibull.1$coefficients[1])
+s.weibull = exp(-((1/scale)*t)^shape)
+
+# With-covariate-weibull-distrition
+shape.1 = exp(weibull.2$coefficients[2])
+scale.1 = exp(weibull.2$coefficients[1])
+shape.2 = exp(weibull.2$coefficients[4])
+scale.2 = exp(weibull.2$coefficients[3])
+s.weibull.1 = exp(-((1/scale.1)*t)^shape.1)
+s.weibull.2 = exp(-((1/scale.2)*t)^shape.2)
+
+# No-covariate-lognormal-distribution
+mu = lognormal.1$coefficients[1]
+sigma = exp(lognormal.1$coefficients[2])
+
+# No-covariates-loglog-distribution
+alpha = exp(loglog.1$coefficients[1])
+beta = exp(loglog.1$coefficients[2])
+s.loglog = 1/(1+(t/alpha)^beta)
+
+# Exponential-distribution
+s.exp = exp(-exp(exp.1$coefficients)*t)
+```
+
+Get baseline survival rate and generate plot:
+```{r para=plot, echo=FALSE, warning=FALSE}
+base.exp.1 = base.exp(exp.1,t)
+
+base.weibull.1 = base.weib(weibull.1, t, 1)
+base.weibull.2.1 = base.weib(weibull.2, t, 1)
+base.weibull.2.2 = base.weib(weibull.2, t, 2)
+
+base.lognormal.1 = base.lognom(lognormal.1, t, 1)
+base.lognormal.2.1 = base.lognom(lognormal.2, t, 1)
+base.lognormal.2.2 = base.lognom(lognormal.2, t, 2)
+
+base.logistic.1 = base.loglog(loglog.1, t, 1)
+base.logistic.2.1 = base.loglog(loglog.2, t, 1)
+base.logistic.2.2 = base.loglog(loglog.2, t, 2)
+
+compare.base.1 = as.data.frame(cbind(t, base.weibull.1, base.exp.1, base.logistic.1, base.lognormal.1))
+ggplot(compare.base.1
+       , aes(t)) +
+  geom_line(aes(y = base.weibull.1, colour = 'weibull')) +
+  geom_line(aes(y = base.exp.1, colour = 'exp')) +
+  geom_line(aes(y = base.logistic.1, colour = 'loglog')) +
+  geom_line(aes(y = base.lognormal.1, colour = 'lognormal')) +
+  labs(title = 'Baseline Survival Function without Covariates', x = 'Time',y='Survival Rate')
+
+compare.base.2 = as.data.frame(cbind(t, 
+                                     base.weibull.2.1, base.weibull.2.2,
+                                     base.logistic.2.1, base.logistic.2.2,
+                                     base.lognormal.2.1, base.lognormal.2.2))
+ggplot(compare.base.2, aes(t)) +
+  geom_line(aes(y = base.weibull.2.1, colour = 'weibull', linetype = 'No-phone-service')) +
+  geom_line(aes(y = base.weibull.2.2, colour = 'weibull', linetype = 'Phone-service')) +
+  geom_line(aes(y = base.logistic.2.1, colour = 'loglog', linetype = 'No-phone-service')) +
+  geom_line(aes(y = base.logistic.2.2, colour = 'loglog', linetype = 'Phone-service')) +
+  geom_line(aes(y = base.lognormal.2.1, colour = 'lognormal', linetype = 'No-phone-service')) +
+  geom_line(aes(y = base.lognormal.2.2, colour = 'lognormal', linetype = 'Phone-service')) +
+  labs(title = 'Baseline Survival Function with Covariates', x = 'Time',y='Survival Rate')
+```
+
+Check assumption of distribution
+```{r para-assumption, echo=FALSE, warning=FALSE}
+ggplot(compare.base.1, aes(log(t))) +
+  geom_line(aes(y=log(-log(base.weibull.1)), colour = 'weibull')) +
+  geom_line(aes(y=log(-log(base.logistic.1)), colour = 'loglog')) +
+  geom_line(aes(y=log(-log(base.lognormal.1)), colour = 'lognormal')) +
+  labs(title = 'Assumption for distribution with no-covariates', x = 'Log Time',y='Log Survival Rate')
+```
+
+### KM Curve / CoxPH Model
+
+Cox-PH model code example can be found from [here](http://www.sthda.com/english/wiki/cox-proportional-hazards-model)
+
+```{r kmfit, echo=TRUE, warning=FALSE}
+base.coxph = coxph(Surv(entry_age, tenure, Churn) ~ 1, data = training)
+base.hazard = basehaz(base.coxph)
+base.km = exp(-base.hazard$hazard)
+```
