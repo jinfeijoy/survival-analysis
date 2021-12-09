@@ -33,3 +33,6 @@
 
 * Performance Evaluation:
   * Concordance Index(C-index)
+
+## Coding Project
+* Dataset: https://www.kaggle.com/taimurzahid/survival-regression-analysis-to-predict-churn/data
