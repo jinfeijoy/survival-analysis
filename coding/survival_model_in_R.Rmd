@@ -28,10 +28,12 @@ require(plyr)
 library(kableExtra)
 library(survival)
 library(survminer)
-
+set.seed(100)
 setwd("C:/Users/luoyan011/Desktop/PersonalLearning/GitHub/data_2021")
 data = fread('WA_Fn-UseC_-Telco-Customer-Churn.csv')
 data$entry_age = 0
+
+data = as.data.frame(unclass(data),stringsAsFactors=TRUE) # Convert character variable to factor
 
 
 data$Churn <- mapvalues(data$Churn, 
@@ -130,6 +132,7 @@ loglog.2 = aftreg(Surv(entry_age, tenure, Churn, type='counting')~strata(PhoneSe
 ```
 
 Check AIC for different models above:
+
 ```{r para_aic, echo=FALSE, warning=FALSE}
 AIC.1 = cbind(logit.to.AIC(weibull.1),logit.to.AIC(lognormal.1),logit.to.AIC(loglog.1),logit.to.AIC(exp.1))
 colnames(AIC.1) = c('weibreg.AIC','lognormal.AIC','loglogistic.AIC','exponential.AIC')
@@ -224,12 +227,85 @@ ggplot(compare.base.1, aes(log(t))) +
   labs(title = 'Assumption for distribution with no-covariates', x = 'Log Time',y='Log Survival Rate')
 ```
 
-### KM Curve / CoxPH Model
+### KM Curve / CoxPH Model / Log Rank Test
 
+
+**Log Rank Test:**
+```{r logrank, echo=TRUE, warning=FALSE}
+survival::survdiff(survival::Surv(tenure, Churn)~ PhoneService, data = training)
+```
+If the p-value here is non-significant, that means we have to stick with the null hypothesis which says that there is no difference in the survival probabilities of both groups for each group.
+
+
+**KM Curve**
+```{r kmcurve, echo=TRUE, warning=FALSE}
+kmcurve = survfit(Surv(entry_age, tenure, Churn) ~ 1, data = training)
+ggsurvplot(kmcurve, data = training, pval = TRUE)
+
+kmcurve.2 = survfit(Surv(tenure, Churn) ~ PhoneService, data = training)
+ggsurvplot(kmcurve.2, data = training, pval = TRUE)
+```
+
+**Cox PH Model**
 Cox-PH model code example can be found from [here](http://www.sthda.com/english/wiki/cox-proportional-hazards-model)
 
 ```{r kmfit, echo=TRUE, warning=FALSE}
-base.coxph = coxph(Surv(entry_age, tenure, Churn) ~ 1, data = training)
+base.coxph = coxph(Surv(entry_age, tenure, Churn) ~ PhoneService+gender+Dependents+Contract,
+                   data = training, x=TRUE, y=TRUE)
 base.hazard = basehaz(base.coxph)
 base.km = exp(-base.hazard$hazard)
+summary(base.coxph)
+ggforest(base.coxph, data = training)
+
 ```
+
+### Survival Tree
+```{r tree, echo=TRUE, warning=FALSE, message=FALSE}
+library(ranger)
+streefit = ranger(Surv(tenure, Churn) ~ PhoneService+gender+Dependents+Contract,
+                  data = training,
+                  importance = 'permutation',
+                  mtry=2,
+                  verbose=TRUE,
+                  num.trees=50,
+                  write.forest = TRUE,
+                  splitrule = 'extratrees',
+                  seed = 43)
+sort(streefit$variable.importance)
+death_times = streefit$unique.death.times
+surv_prob = data.frame(streefit$survival)
+avg_prob = sapply(surv_prob, mean)
+plot(death_times,
+     avg_prob,
+     type = 's',
+     ylim = c(0,1),
+     col = 'red',
+     lwd = 2,
+     bty = 'n',
+     ylab = 'survival probability',
+     xlab = 'time in months',
+     main = 'survival tree model\n average survival curve')
+
+treeInfo(streefit)
+
+library(randomForestSRC)
+rsf1 <- rfsrc(Surv(tenure, Churn)~PhoneService+gender+Dependents+Contract,
+              data=training,ntree=15,forest=TRUE)
+
+```
+
+[**C-index**](https://search.r-project.org/CRAN/refmans/pec/html/cindex.html)
+```{r cindex, echo=TRUE, warning=FALSE, message=FALSE}
+library(pec)
+A1  <- pec::cindex(list("Cox X1"=base.coxph,
+                        "RSF"=rsf1),
+                   formula=Surv(tenure, Churn)~1,
+                   data=testing,
+                   eval.times=seq(1,70,5))
+print(A1)
+plot(A1)
+```
+
+### Reference: 
+* https://medium.com/codex/survival-analysis-part-ii-ddbbae048d3f
+* https://amunategui.github.io/survival-ensembles/
