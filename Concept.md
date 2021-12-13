@@ -98,6 +98,7 @@
 * https://web.stanford.edu/~lutian/coursepdf/unit1.pdf
 * https://www.scielo.br/j/aabc/a/JnPjpjqLKnNzbkDHSQdHx9t/?format=pdf&lang=en
 * https://medium.com/codex/survival-analysis-part-ii-ddbbae048d3f
+* [Survival analysis using lifelines in Python](https://medium.com/analytics-vidhya/survival-analysis-using-lifelines-in-python-bf5eb0435dec)
 * [Kaggle Example](https://www.kaggle.com/taimurzahid/survival-regression-analysis-to-predict-churn)
 * Cox Proportional Hazard Model
   * https://kowshikchilamkurthy.medium.com/the-cox-proportional-hazards-model-da61616e2e50
