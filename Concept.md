@@ -90,13 +90,26 @@
   * Survival trees and forests are popular non-parametric alternatives to (semi) parametric models. They offer great flexibility and can automatically detect certain types of interactions without the need to specify them beforehand.
   * The basic setup assumes that the covariate values are available at time 0 for each subject. Thus, only the baseline values of a time-varying covariate are typically used.
   * survival tree analysis/[survival random forest](https://scikit-survival.readthedocs.io/en/stable/user_guide/random-survival-forest.html)
+* **Statistical Inference & Suitability**
+  * Data Drive Test: 
+    * log-rank-test: to test if a categorical variable is usefule (different group has different hazard function or not)
+    * Focus on the population data (data driven); it tends to answer question like "is it sufficient to conclude that such a group is safer or risker than another group"
+  * parameters significant test 
+    * Wald Test: can construct confidence interval for estimates (The estimator is unbiased and asymptotic normal, so not suitable for small dataset)
+    * Likelihood Ratio Test: it can be used to test the variable significance for nested model (i.e. PH Model), it also help us to build confidence interval for simple parametric model (i.e. Weibull/Lognormal, etc.)
+    * These test focus more on the significance of estimated parameters; it tends to answer if a variable (estimator/estimate) is statistically significant or if this variable has a relationship with dependent variable. I.e. given the data we have can we use this estimator/estimate to characterize our data.
+  * Model Suitability Check: for log-location-scale model, we can plot <img src="https://render.githubusercontent.com/render/math?math=S_{0}^{-1}">(<img src="https://render.githubusercontent.com/render/math?math=\hat{S}^{KM}(t)">) against log t. If the model is indeed the selected parametric model, we should expect a roughly linear graph.
 * **Performance Evaluation**
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
     * [Compute the C-index](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/): for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
     * Harrell's C-index is simply: `(# concordant pairs)/(# concordant pairs + # discordant pairs)`
     * formula: ![image](https://user-images.githubusercontent.com/16402963/144953369-fc7d06c3-5dd9-4d2a-8178-da4341806e93.png)
     * Values of c near 0.5 indicate that the risk score predictions are no better than a coin flip in determining which patient will live longer. Values near 1 indicate that the risk scores are good at determining which of two patients will have the disease first.
-
+    * Too much right censoring data will introduce bias
+  * Brier Score
+    * IBS, etc
+    * BS for survival models is developed later than C-index, it is better (i.e. addressed more issues) but more complex
+    
 ### Reference
 * https://en.wikipedia.org/wiki/Survival_analysis#Example:_Acute_myelogenous_leukemia_survival_data
 * https://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_Survival/BS704_Survival_print.html
