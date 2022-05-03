@@ -99,7 +99,7 @@
     * Likelihood Ratio Test: it can be used to test the variable significance for nested model (i.e. PH Model), it also help us to build confidence interval for simple parametric model (i.e. Weibull/Lognormal, etc.)
     * These test focus more on the significance of estimated parameters; it tends to answer if a variable (estimator/estimate) is statistically significant or if this variable has a relationship with dependent variable. I.e. given the data we have can we use this estimator/estimate to characterize our data.
   * Model Suitability Check: for log-location-scale model, we can plot <img src="https://render.githubusercontent.com/render/math?math=S_{0}^{-1}">(<img src="https://render.githubusercontent.com/render/math?math=\hat{S}^{KM}(t)">) against log t. If the model is indeed the selected parametric model, we should expect a roughly linear graph.
-    * reference: <Statistical Models and Methods for Lifetime Data (Second Edition) --Lawless> 
+    * reference: <Statistical Models and Methods for Lifetime Data (Second Edition) --Lawless> (Section 6.1)
 * **Performance Evaluation**
   * [Concordance Index(C-index)](https://medium.com/analytics-vidhya/concordance-index-72298c11eac7)
     * [Compute the C-index](https://statisticaloddsandends.wordpress.com/2019/10/26/what-is-harrells-c-index/): for every pair of patients i and j with <img src="https://render.githubusercontent.com/render/math?math=i\ne j">, look at their risk scores and times-to-event.
